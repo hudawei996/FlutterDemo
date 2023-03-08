@@ -7,11 +7,14 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-import io.flutter.app.FlutterActivity;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.view.FlutterMain;
 import io.flutter.view.FlutterRunArguments;
 import io.flutter.view.FlutterView;
+
+//import io.flutter.app.FlutterActivity;
+import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.embedding.engine.FlutterEngine;
 
 public class MainActivity extends FlutterActivity implements View.OnClickListener {
     private FlutterView flutterView;
@@ -45,7 +48,10 @@ public class MainActivity extends FlutterActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //获得从Intent的参数
         String[] args = getArgsFromIntent(getIntent());
+        //
         FlutterMain.ensureInitializationComplete(getApplicationContext(), args);
 
         setContentView(R.layout.main_activity);
@@ -86,43 +92,49 @@ public class MainActivity extends FlutterActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn1:
-                methodChannel.invokeMethod("flutterMethod1", null, new MethodChannel.Result() {
-                    @Override
-                    public void success(Object o) {
-                        String message = (String) o;
-                        System.out.println(message);
-                    }
+                methodChannel.invokeMethod(
+                        "flutterMethod1",
+                        null,
+                        new MethodChannel.Result() {
+                            @Override
+                            public void success(Object o) {
+                                String message = (String) o;
+                                System.out.println(message);
+                            }
 
-                    @Override
-                    public void error(String s, String s1, Object o) {
+                            @Override
+                            public void error(String s, String s1, Object o) {
 
-                    }
+                            }
 
-                    @Override
-                    public void notImplemented() {
+                            @Override
+                            public void notImplemented() {
 
-                    }
-                });
+                            }
+                        });
                 System.out.println("android 按钮1====================>");
                 break;
             case R.id.btn2:
-                methodChannel.invokeMethod("flutterMethod2", null, new MethodChannel.Result() {
-                    @Override
-                    public void success(Object o) {
-                        String message = (String) o;
-                        System.out.println(message);
-                    }
+                methodChannel.invokeMethod(
+                        "flutterMethod2",
+                        null,
+                        new MethodChannel.Result() {
+                            @Override
+                            public void success(Object o) {
+                                String message = (String) o;
+                                System.out.println(message);
+                            }
 
-                    @Override
-                    public void error(String s, String s1, Object o) {
+                            @Override
+                            public void error(String s, String s1, Object o) {
 
-                    }
+                            }
 
-                    @Override
-                    public void notImplemented() {
+                            @Override
+                            public void notImplemented() {
 
-                    }
-                });
+                            }
+                        });
                 System.out.println("android 按钮2====================>");
                 break;
         }
